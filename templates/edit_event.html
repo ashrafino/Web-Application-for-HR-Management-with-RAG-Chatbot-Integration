@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}Modifier l'Événement{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Modifier l'Événement</h2>
+    <form action="{{ url_for('edit_event', event_id=event.id) }}" method="post">
+        <div class="form-group">
+            <label for="title">Titre de l'Événement</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Date de l'Événement</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ event.date.strftime('%Y-%m-%d') }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Mettre à Jour l'Événement</button>
+    </form>
+</div>
+{% endblock %}

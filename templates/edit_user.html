@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Employee{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center animated fadeInDown">Modifier l'Employé</h1>
+    <form method="POST" class="animated fadeInUp">
+        <div class="form-group">
+            <label for="matricule">Matricule:</label>
+            <input type="text" id="matricule" name="matricule" class="form-control" value="{{ user.matricule }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="nom_usuel">Nom Usuel:</label>
+            <input type="text" id="nom_usuel" name="nom_usuel" class="form-control" value="{{ user.nom_usuel }}" required>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" name="prenom" class="form-control" value="{{ user.prenom }}" required>
+        </div>
+        <div class="form-group">
+            <label for="date_de_naissance">Date de Naissance:</label>
+            <input type="date" id="date_de_naissance" name="date_de_naissance" class="form-control" value="{{ user.date_de_naissance }}" required>
+        </div>
+        <div class="form-group">
+            <label for="date_d_entree">Date d'Entrée:</label>
+            <input type="date" id="date_d_entree" name="date_d_entree" class="form-control" value="{{ user.date_d_entree }}" required>
+        </div>
+        <div class="form-group">
+            <label for="situation_familiale">Situation Familiale:</label>
+            <input type="text" id="situation_familiale" name="situation_familiale" class="form-control" value="{{ user.situation_familiale }}" required>
+        </div>
+        <div class="form-group">
+            <label for="echelle">Echelle:</label>
+            <input type="text" id="echelle" name="echelle" class="form-control" value="{{ user.echelle }}" required>
+        </div>
+        <div class="form-group">
+            <label for="date_debut_grade">Date Début Grade:</label>
+            <input type="date" id="date_debut_grade" name="date_debut_grade" class="form-control" value="{{ user.date_debut_grade }}" required>
+        </div>
+        <div class="form-group">
+            <label for="echelon">Echelon:</label>
+            <input type="text" id="echelon" name="echelon" class="form-control" value="{{ user.echelon }}" required>
+        </div>
+        <div class="form-group">
+            <label for="date_d_effet">Date d'Effet:</label>
+            <input type="date" id="date_d_effet" name="date_d_effet" class="form-control" value="{{ user.date_d_effet }}" required>
+        </div>
+        <div class="form-group">
+            <label for="sexe">Sexe:</label>
+            <select id="sexe" name="sexe" class="form-control" required>
+                <option value="M" {% if user.sexe == 'M' %}selected{% endif %}>Masculin</option>
+                <option value="F" {% if user.sexe == 'F' %}selected{% endif %}>Féminin</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="etablissement">Etablissement:</label>
+            <input type="text" id="etablissement" name="etablissement" class="form-control" value="{{ user.etablissement }}" required>
+        </div>
+        <div class="form-group">
+            <label for="numero_carte_identite">Numéro Carte Identité:</label>
+            <input type="text" id="numero_carte_identite" name="numero_carte_identite" class="form-control" value="{{ user.numero_carte_identite }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="nom_conjoint">Nom Conjoint (Optional):</label>
+            <input type="text" id="nom_conjoint" name="nom_conjoint" class="form-control" value="{{ user.nom_conjoint }}">
+        </div>
+        <div class="form-group">
+            <label for="numero_cin">Numéro CIN (Optional):</label>
+            <input type="text" id="numero_cin" name="numero_cin" class="form-control" value="{{ user.numero_cin }}">
+        </div>
+        <div class="form-group">
+            <label for="prenom_enfant">Prénom Enfant (Optional):</label>
+            <input type="text" id="prenom_enfant" name="prenom_enfant" class="form-control" value="{{ user.prenom_enfant }}">
+        </div>
+        <div class="form-group">
+            <label for="sexe_enfant">Sexe Enfant (Optional):</label>
+            <select id="sexe_enfant" name="sexe_enfant" class="form-control">
+                <option value="" {% if user.sexe_enfant == '' %}selected{% endif %}>Select</option>
+                <option value="M" {% if user.sexe_enfant == 'M' %}selected{% endif %}>Masculin</option>
+                <option value="F" {% if user.sexe_enfant == 'F' %}selected{% endif %}>Féminin</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date_de_naissance_enfant">Date de Naissance Enfant (Optional):</label>
+            <input type="date" id="date_de_naissance_enfant" name="date_de_naissance_enfant" class="form-control" value="{{ user.date_de_naissance_enfant }}">
+        </div>
+        <div class="form-group">
+            <label for="identifiant_emploi">Identifiant Emploi:</label>
+            <input type="text" id="identifiant_emploi" name="identifiant_emploi" class="form-control" value="{{ user.identifiant_emploi }}" required>
+        </div>
+        <div class="form-group">
+            <label for="code_caisse">Code Caisse:</label>
+            <input type="text" id="code_caisse" name="code_caisse" class="form-control" value="{{ user.code_caisse }}" required>
+        </div>
+        <div class="form-group">
+            <label for="numerau_d_inscription">Numéro d'Inscription:</label>
+            <input type="text" id="numerau_d_inscription" name="numerau_d_inscription" class="form-control" value="{{ user.numerau_d_inscription }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary hover-animate">>Mettre à Jour</button>
+    </form>
+</div>
+
+<!-- Add Animation Styles -->
+<style>
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .fadeInDown {
+        animation-name: fadeInDown;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .hover-animate {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-animate:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+{% endblock %}

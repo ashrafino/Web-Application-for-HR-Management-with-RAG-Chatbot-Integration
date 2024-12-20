@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Chatbot{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Discuter avec le Chatbot AI de la Base de Données</h2>
+    <form id="chat-form">
+        <div class="form-group">
+            <label for="query">Posez une question :</label>
+            <input type="text" id="query" name="query" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    </form>
+    <h2>Réponse :</h2>
+    <div class="alert alert-info" id="response"></div>
+</div>
+
+<script>
+document.getElementById("chat-form").onsubmit = async function(event) {
+    event.preventDefault();
+
+    const query = document.getElementById("query").value;
+    const responseContainer = document.getElementById("response");
+    responseContainer.innerHTML = ''; // Clear previous response
+
+    // Send JSON request to the server
+    const response = await fetch('/chatbot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+    });
+
+    // Process JSON response
+    const data = await response.json();
+    const responseText = data.response;
+
+    // Display response instantly
+    responseContainer.innerHTML = responseText;
+};
+
+</script>
+{% endblock %}

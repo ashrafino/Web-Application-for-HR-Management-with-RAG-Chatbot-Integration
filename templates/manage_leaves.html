@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}Gestion des Congés{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center animated fadeInDown">Gestion des Congés</h1>
+    <form method="POST" class="animated fadeInUp">
+        <div class="form-group">
+            <label for="matricule">Matricule:</label>
+            <input type="text" id="matricule" name="matricule" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="date_debut_conge">Date Début Congé:</label>
+            <input type="date" id="date_debut_conge" name="date_debut_conge" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="date_fin_conge">Date Fin Congé:</label>
+            <input type="date" id="date_fin_conge" name="date_fin_conge" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary hover-animate">Mettre à jour le Congé</button>
+    </form>
+
+    <h2 class="text-center animated fadeInDown mt-4">Solde des Congés</h2>
+    <table class="table table-striped table-bordered animated fadeInUp">
+        <thead class="thead-dark">
+            <tr>
+                <th>Matricule</th>
+                <th>Nom Usuel</th>
+                <th>Prénom</th>
+                <th>Congés Non Pris N-1</th>
+                <th>Congés N</th>
+                <th>Date Début Congé</th>
+                <th>Date Fin Congé</th>
+                <th>Jours de Congés Pris</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave in leaves %}
+            <tr>
+                <td>{{ leave.user.matricule }}</td>
+                <td>{{ leave.user.nom_usuel }}</td>
+                <td>{{ leave.user.prenom }}</td>
+                <td>{{ leave.conge_non_pris_n_1 }}</td>
+                <td>{{ leave.conge_n }}</td>
+                <td>{{ leave.date_debut_conge }}</td>
+                <td>{{ leave.date_fin_conge }}</td>
+                <td>{{ leave.leave_days_taken }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Animation Styles -->
+<style>
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .fadeInDown {
+        animation-name: fadeInDown;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .hover-animate {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-animate:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+{% endblock %}

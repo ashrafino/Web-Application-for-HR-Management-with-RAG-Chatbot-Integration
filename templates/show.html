@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Information Table</h1>
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>Matricule</th>
+                <th>Nom usuel</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Date d'entrée</th>
+                <th>Situation familiale</th>
+                <th>Echelle</th>
+                <th>Date début grade</th>
+                <th>Echelon</th>
+                <th>Date d'effet</th>
+                <th>Sexe</th>
+                <th>Etablissement</th>
+                <th>N° carte identité</th>
+                <th>Numéro d'identificateur</th>
+                <th>Numéro de naissance</th>
+                <th>Numéro d'ordre</th>
+                <th>Tém charge</th>
+                <th>Saisie Sit.scolaire/SFT</th>
+                <th>Identifiant emploi</th>
+                <th>Ann. Not. Fin.</th>
+                <th>Rubrique</th>
+                <th>Montant initial</th>
+                <th>Nombre d'échéances</th>
+                <th>Solde</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- User rows will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('path/to/your/backend/endpoint')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#userTable tbody');
+                    data.forEach(user => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${user.matricule}</td>
+                            <td>${user.nom}</td>
+                            <td>${user.prenom}</td>
+                            <td>${user.date_naissance}</td>
+                            <td>${user.date_entree}</td>
+                            <td>${user.situation_familiale}</td>
+                            <td>${user.echelle}</td>
+                            <td>${user.date_debut_grade}</td>
+                            <td>${user.echelon}</td>
+                            <td>${user.date_effet}</td>
+                            <td>${user.sexe}</td>
+                            <td>${user.etablissement}</td>
+                            <td>${user.carte_identite}</td>
+                            <td>${user.identifiant}</td>
+                            <td>${user.numero_naissance}</td>
+                            <td>${user.numero_ordre}</td>
+                            <td>${user.tem_charge}</td>
+                            <td>${user.saisie_sit_scolaire}</td>
+                            <td>${user.identifiant_emploi}</td>
+                            <td>${user.ann_not_fin}</td>
+                            <td>${user.rubrique}</td>
+                            <td>${user.montant_initial}</td>
+                            <td>${user.nombre_echeances}</td>
+                            <td>${user.solde}</td>
+                            <td>${user.date_debut}</td>
+                            <td>${user.date_fin}</td>
+                            <td>${user.code}</td>
+                        `;
+
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        });
+    </script>
+</body>
+</html>

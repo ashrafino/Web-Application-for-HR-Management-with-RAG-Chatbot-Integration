@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+
+{% block title %}Add User{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center animated fadeInDown">Formulaire d'Informations Personnelles</h1>
+    <form method="POST" onsubmit="return validateForm()" class="animated fadeInUp">
+        <div class="form-group">
+            <label for="matricule">Matricule (2 letters + 4 numbers or 1 letter + 5 numbers):</label>
+            <input type="text" id="matricule" name="matricule" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="nom_usuel">Nom Usuel:</label>
+            <input type="text" id="nom_usuel" name="nom_usuel" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" name="prenom" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="date_de_naissance">Date de Naissance:</label>
+            <input type="date" id="date_de_naissance" name="date_de_naissance" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="date_d_entree">Date d'Entrée:</label>
+            <input type="date" id="date_d_entree" name="date_d_entree" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="situation_familiale">Situation Familiale:</label>
+            <input type="text" id="situation_familiale" name="situation_familiale" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="echelle">Echelle:</label>
+            <input type="text" id="echelle" name="echelle" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="date_debut_grade">Date Début Grade:</label>
+            <input type="date" id="date_debut_grade" name="date_debut_grade" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="echelon">Echelon:</label>
+            <input type="text" id="echelon" name="echelon" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="date_d_effet">Date d'Effet:</label>
+            <input type="date" id="date_d_effet" name="date_d_effet" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="sexe">Sexe:</label>
+            <select id="sexe" name="sexe" class="form-control" required>
+                <option value="M">Masculin</option>
+                <option value="F">Féminin</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="etablissement">Etablissement:</label>
+            <input type="text" id="etablissement" name="etablissement" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="numero_carte_identite">N° Carte Identité:</label>
+            <input type="text" id="numero_carte_identite" name="numero_carte_identite" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="identifiant_emploi">Identifiant Emploi:</label>
+            <input type="text" id="identifiant_emploi" name="identifiant_emploi" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="code_caisse">Code Caisse:</label>
+            <input type="text" id="code_caisse" name="code_caisse" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="numerau_d_inscription">Numérau d'Inscription:</label>
+            <input type="text" id="numerau_d_inscription" name="numerau_d_inscription" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary hover-animate">Soumettre</button>
+    </form>
+</div>
+
+<!-- Add Animation Styles -->
+<style>
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .fadeInDown {
+        animation-name: fadeInDown;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .hover-animate {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-animate:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<!-- Add JavaScript validation -->
+<script>
+function validateForm() {
+    var matricule = document.getElementById('matricule').value;
+    var matriculePattern = /^[A-Za-z]{2}\d{4}$|^[A-Za-z]\d{5}$/;
+    if (!matriculePattern.test(matricule)) {
+        alert('Matricule must be two letters followed by four numbers or one letter followed by five numbers.');
+        return false;
+    }
+    return true;
+}
+</script>
+{% endblock %}

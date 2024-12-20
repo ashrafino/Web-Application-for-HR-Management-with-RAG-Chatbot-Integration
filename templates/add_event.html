@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}Ajouter un Événement{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center animated fadeInDown">Ajouter un Événement</h2>
+    <form action="{{ url_for('add_event') }}" method="post" class="animated fadeInUp">
+        <div class="form-group">
+            <label for="title">Titre de l'Événement</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Date de l'Événement</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+        <button type="submit" class="btn btn-primary hover-animate">Ajouter l'Événement</button>
+    </form>
+</div>
+
+<!-- Ajouter des Styles pour les Animations -->
+<style>
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .fadeInDown {
+        animation-name: fadeInDown;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .hover-animate {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-animate:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends "layout.html" %}
+
+{% block title %}Importer des Utilisateurs depuis Excel{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center animated fadeInDown">
+            <h1>Importer des Utilisateurs depuis Excel</h1>
+        </div>
+        <div class="card-body">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} animated fadeInUp">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form id="upload-form" action="/import" method="POST" enctype="multipart/form-data" class="animated fadeInUp">
+                <div class="form-group">
+                    <label for="file" class="form-label">Sélectionner un fichier Excel :</label>
+                    <div id="drop-zone" class="form-control-file">
+                        <input type="file" id="file" name="file" accept=".xlsx" required class="d-none">
+                        <p id="file-info">Glissez-déposez votre fichier ici, ou cliquez pour en sélectionner un</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block hover-animate">Importer</button>
+            </form>
+            <p class="text-center mt-3"><a href="/" class="btn btn-secondary hover-animate">Retour au Formulaire</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- Ajouter des Styles pour les Animations -->
+<style>
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .fadeInDown {
+        animation-name: fadeInDown;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .hover-animate {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-animate:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+        max-width: 600px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .card-header {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn {
+        border-radius: 5px;
+    }
+
+    #drop-zone {
+        border: 2px dashed #007bff;
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        color: #007bff;
+        font-weight: bold;
+        position: relative;
+        background-color: #f8f9fa;
+    }
+
+    #drop-zone.drag-over {
+        background-color: #e9ecef;
+    }
+
+    #file-info {
+        margin: 0;
+        font-size: 16px;
+        color: #007bff;
+    }
+
+    #drop-zone.file-uploaded {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    #drop-zone.file-uploaded #file-info {
+        color: #155724;
+        font-weight: normal;
+    }
+</style>
+
+<!-- Ajouter JavaScript pour Glisser-Déposer -->
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file');
+    const fileInfo = document.getElementById('file-info');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', (event) => {
+        event.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const files = event.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            updateFileInfo(files[0].name);
+            dropZone.classList.add('file-uploaded');
+        }
+    });
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            updateFileInfo(fileInput.files[0].name);
+            dropZone.classList.add('file-uploaded');
+        }
+    });
+
+    function updateFileInfo(fileName) {
+        fileInfo.textContent = `Fichier sélectionné : ${fileName}`;
+    }
+</script>
+{% endblock %}

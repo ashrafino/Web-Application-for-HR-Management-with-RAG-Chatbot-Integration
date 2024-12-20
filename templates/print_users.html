@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Print List of Employees{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Liste des Employés</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Matricule</th>
+                    <th>Nom Usuel</th>
+                    <th>Prénom</th>
+                    <th>Numéro Carte Identité</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.matricule }}</td>
+                    <td>{{ user.nom_usuel }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.numero_carte_identite }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+window.onload = function() {
+    window.print();
+};
+</script>
+{% endblock %}

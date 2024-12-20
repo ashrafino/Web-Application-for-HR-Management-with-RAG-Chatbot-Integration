@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+
+{% block title %}List of Employees{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center animated fadeInDown">Liste des Employés</h1>
+    <div class="table-responsive animated fadeInUp">
+        <!-- Buttons for exporting the whole table -->
+        <div class="d-flex justify-content-end mb-2">
+            <a href="{{ url_for('export_table', format='csv') }}" class="btn btn-primary"><i class="fas fa-file-csv"></i> CSV</a>
+            <a href="{{ url_for('export_table', format='excel') }}" class="btn btn-success ml-2"><i class="fas fa-file-excel"></i> Excel</a>
+            <a href="{{ url_for('export_table', format='pdf') }}" class="btn btn-danger ml-2"><i class="fas fa-file-pdf"></i> PDF</a>
+            <button onclick="window.print()" class="btn btn-secondary ml-2"><i class="fas fa-print"></i> Print</button>
+        </div>
+        <table id="employeeTable" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Matricule</th>
+                    <th>Nom Usuel</th>
+                    <th>Prénom</th>
+                    <th>Numéro Carte Identité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.matricule }}</td>
+                    <td>{{ user.nom_usuel }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.numero_carte_identite }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_user', matricule=user.matricule) }}" class="btn btn-primary hover-animate"><i class="fas fa-edit"></i> Modifier</a>
+                        <form action="{{ url_for('delete_user', matricule=user.matricule) }}" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn btn-danger hover-animate" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"><i class="fas fa-trash-alt"></i> Supprimer</button>
+                        </form>
+                        <!-- Export buttons for each user -->
+                        <div class="btn-group" role="group">
+                            <a href="{{ url_for('export_user', matricule=user.matricule, format='csv') }}" class="btn btn-secondary hover-animate"><i class="fas fa-file-csv"></i></a>
+                            <a href="{{ url_for('export_user', matricule=user.matricule, format='excel') }}" class="btn btn-secondary hover-animate"><i class="fas fa-file-excel"></i></a>
+                            <a href="{{ url_for('export_user', matricule=user.matricule, format='pdf') }}" class="btn btn-secondary hover-animate"><i class="fas fa-file-pdf"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- Add DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap4.min.css">
+
+<!-- Add Animation Styles -->
+<style>
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .fadeInDown {
+        animation-name: fadeInDown;
+    }
+
+    .fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .hover-animate {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-animate:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn i {
+        margin-right: 5px;
+    }
+
+    .btn-group .btn {
+        padding: 0.25rem 0.5rem;
+    }
+</style>
+
+<!-- Add DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#employeeTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: []
+    });
+});
+</script>
+{% endblock %}
