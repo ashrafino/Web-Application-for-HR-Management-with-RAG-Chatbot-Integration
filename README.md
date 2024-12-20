@@ -73,6 +73,18 @@ Special thanks to the team at **MARSA MAROC**, particularly the HR department, f
 
 ---
 
+## Installation
+
+1. Clone this repository:
+   ```bash
+   git clone <repository_url>
+   cd <repository_directory>
+   pip install -r requirements.txt
+   python app.py
+   flask run
+
+---
+
 ## Contact
 For more details or questions, feel free to contact:
 - **Author**: Achraf El Bachra
